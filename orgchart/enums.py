@@ -12,7 +12,17 @@ class DateFormatChoice(models.TextChoices):
     DD_MM_YYYY = "DD-MM-YYYY"
 
 
+class TimeFormatChoice(models.TextChoices):
+    HOUR_12 = "12 HOUR"
+    HOUR_24 = "24 HOUR"
+
+
 class GenderChoice(models.TextChoices):
     MALE = "MALE"
     FEMALE = "FEMALE"
     N_A = "N/A"
+
+
+class NotificationChoice(models.TextChoices):
+    ENABLED = "ENABLED"
+    DISABLED = "DISABLED"
