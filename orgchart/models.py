@@ -32,7 +32,6 @@ class SysUser(BaseModel, AbstractBaseUser, PermissionsMixin):
 
     # other info
     building = models.CharField(max_length=255, blank=True, null=True)
-    calendar = models.CharField(max_length=255, blank=True, null=True)
     calendar_integration = models.CharField(max_length=255, choices=CalendarChoice.choices, blank=True, null=True, verbose_name="Calender Integration")
     ldap_server = models.CharField(max_length=255, blank=True, null=True, verbose_name="LDAP Server")
     location = models.CharField(max_length=255, blank=True, null=True)
@@ -58,14 +57,17 @@ class SysUser(BaseModel, AbstractBaseUser, PermissionsMixin):
     date_format = models.CharField(max_length=255, blank=True, null=True, choices=DateFormatChoice.choices, verbose_name="Date Format")
     time_format = models.CharField(max_length=255, blank=True, null=True, choices=TimeFormatChoice.choices, verbose_name="Time Format")
     defualt_perspective = models.CharField(max_length=255, blank=True, null=True)
-    time = models.TimeField()
 
     # security
     is_multifactor_enabled = models.BooleanField(default=False, blank=True, verbose_name="Enable Multifactor Authentication")
-    falied_login = models.PositiveIntegerField(default=0, blank=True, verbose_name="Failed Login Attempts")
+    failed_login = models.PositiveIntegerField(default=0, blank=True, verbose_name="Failed Login Attempts")
     password_needs_reset = models.BooleanField(default=False, blank=True, verbose_name="Password Needs Reset")
 
     # orm config
+    is_verified = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
+
     objects = UserManager()
     USERNAME_FIELD = "email"
 
