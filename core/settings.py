@@ -33,9 +33,17 @@ INSTALLED_APPS = [
     # rest_frameworl
     'rest_framework',
 
+    # third party apps
+    'crispy_forms',
+    'crispy_bootstrap4',
+
     # apps
     'orgchart'
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
