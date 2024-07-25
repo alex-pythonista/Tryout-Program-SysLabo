@@ -4,12 +4,12 @@
 {% block title%} Add a new employee {% endblock %}
 
 {% block content %}
-<div class="container-fluid pt-5 col-4">
+<div class="container pt-5">
   <h3 class="">Add a new employee</h3>
-  <div class="container pb-5 pt-2">
+  <div class="pb-5 pt-2">
     <form method="POST">
       {% csrf_token %}
-      {{ form|crispy }}
+      {% crispy form %}
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
