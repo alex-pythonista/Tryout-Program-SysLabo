@@ -6,7 +6,9 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from core.models import BaseModel
 from .enums import (
     CalendarChoice, DateFormatChoice, TimeFormatChoice,
-    GenderChoice, NotificationChoice
+    GenderChoice, NotificationChoice, DepartmentChoice,
+    DivisionChoice, SectionChoice, GroupChoice,
+    TitleChoice
 )
 from .managers import UserManager
 
@@ -15,7 +17,12 @@ class SysUser(BaseModel, AbstractBaseUser, PermissionsMixin):
     # user info
     sys_id = models.UUIDField(primary_key=True, default=uuid4, editable=False, verbose_name="Sys ID")
     user_id = models.PositiveIntegerField(default=0, verbose_name="User ID")
-    department = models.CharField(max_length=255, blank=True, null=True) # wip
+    department = models.CharField(max_length=255, choices=DepartmentChoice.choices, blank=True, null=True)
+    # department breakdown
+    division = models.CharField(max_length=255, choices=DivisionChoice.choices, blank=True, null=True)
+    section = models.CharField(max_length=255, choices=SectionChoice.choices, blank=True, null=True)
+    group = models.CharField(max_length=255, choices=GroupChoice.choices, blank=True, null=True)
+
     email = models.EmailField(unique=True)
     employee_number = models.CharField(max_length=255, blank=True, null=True)
     first_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="First Name")
@@ -27,7 +34,7 @@ class SysUser(BaseModel, AbstractBaseUser, PermissionsMixin):
     business_phone = models.CharField(max_length=255, blank=True, null=True, verbose_name="Business Phone")
     internal_integration_user = models.PositiveIntegerField(default=0, blank=True, verbose_name="Internal Integration User")
     prefix = models.CharField(max_length=255, blank=True, null=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
+    title = models.CharField(max_length=255, choices=TitleChoice, blank=True, null=True)
 
 
     # other info
