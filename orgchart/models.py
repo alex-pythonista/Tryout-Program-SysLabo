@@ -83,21 +83,39 @@ class SysUser(BaseModel, AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Sys Users"
 
     def __str__(self) -> str:
-        return self.email
+        return f"{self.first_name} {self.last_name}" or self.email
     
 
 class CommonDepartment(models.Model):
     sys_id = models.UUIDField(primary_key=True, editable=False, default=uuid4, verbose_name="Sys ID")
-    department_name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Department Name")
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name="Department Name")
+    # department breakdown
+    department = models.CharField(max_length=255, choices=DepartmentChoice.choices, blank=True, null=True)
+    division = models.CharField(max_length=255, choices=DivisionChoice.choices, blank=True, null=True)
+    section = models.CharField(max_length=255, choices=SectionChoice.choices, blank=True, null=True)
+    group = models.CharField(max_length=255, choices=GroupChoice.choices, blank=True, null=True)
+
     ID = models.CharField(max_length=255, blank=True, null=True)
-    parent = ID = models.CharField(max_length=255, blank=True, null=True)
-    primary_contact = ID = models.CharField(max_length=255, blank=True, null=True, verbose_name="Primary Contact")
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+    primary_contact =  models.ForeignKey(SysUser, on_delete=models.CASCADE, related_name="primary_contact")
     business_unit = models.CharField(max_length=255, blank=True, null=True)
     company = models.CharField(max_length=255, blank=True, null=True)
     cost_center = models.CharField(max_length=255, blank=True, null=True)
-    department_head = models.CharField(max_length=255, blank=True, null=True, verbose_name="Department Head")
+    department_head = models.ForeignKey(SysUser, on_delete=models.CASCADE, related_name="department_head")
     description = models.CharField(max_length=255, blank=True, null=True)
     head_count = models.PositiveIntegerField(default=0)
-    ID = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Common Department"
+        verbose_name_plural = "Common Departments"
+
+    def save(self, *args, **kwargs):
+        # Concatenate department, division, section, and group
+        components = filter(None, [self.department, self.division, self.section, self.group])
+        self.name = ' '.join(components) or None
+        super().save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return self.name
 
 

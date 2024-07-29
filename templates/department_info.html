@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+
+{% block title %} Department Information {% endblock %}
+
+{% block content %}
+
+<div class="container p-5">
+  <div class="d-flex justify-content-between align-items-center pb-3">
+    <h3>Department Information</h3>
+    <a href="{% url 'add-department-info' %}" class="btn btn-primary">Add Department Info</a>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Department Head</th>
+        <th scope="col">Description</th>
+        <th scope="col">Head Count</th>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Parent</th>
+        <th scope="col">Primary Contact</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in data %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ d.department_head }}</td>
+        <td>{{ d.description }}</td>
+        <td>{{ d.head_count }}</td>
+        <td>{{ d.ID }}</td>
+        <td>{{ d.name }}</td>
+        <td>{{ d.parent|default_if_none:'' }}</td>
+        <td>{{ d.primary_contact }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
