@@ -24,6 +24,9 @@ class SysUserAdmin(UserAdmin):
                 'fields': (
                     'user_id',
                     'department',
+                    'division',
+                    'section',
+                    'group',
                     'employee_number',
                     'first_name',
                     'middle_name',

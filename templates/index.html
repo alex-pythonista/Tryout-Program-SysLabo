@@ -8,6 +8,26 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <title>{% block title%} Welcome | SysLabo {% endblock %}</title>
+  <style>
+    .org-chart ul {
+      list-style-type: none;
+    }
+
+    .org-chart ul ul {
+      padding-left: 20px;
+      border-left: 1px solid #ccc;
+      margin-left: 20px;
+    }
+
+    .org-chart li {
+      padding: 10px;
+    }
+
+    .spaced {
+      margin-right: 10px;
+    }
+  </style>
+  </style>
 </head>
 
 <body>
@@ -20,7 +40,7 @@
       <a class="nav-link" aria-current="page" href="{% url 'home' %}">ホーム</a>
       <a class="nav-link" aria-current="page" href="{% url 'add-employee' %}">従業員を追加</a>
       <a class="nav-link" aria-current="page" href="{% url 'common-department' %}">部署情報</a>
-        <a class="nav-link" aria-current="page" href="/admin/">管理パネル</a>
+      <a class="nav-link" aria-current="page" href="/admin/">管理パネル</a>
     </div>
 
     <div class="d-flex">
@@ -36,7 +56,126 @@
   </div>
   {% endif %}
   {% block content %}
-  <h3 class="container pt-5">SysLabo Organizational Chart</h3>
+  <h3 class="text-center pt-3">SysLabo Oraganization Chart</h3>
+  <div class="container-fluid">
+    <div class="row">
+
+    <div class="org-chart col-md-4">
+    <div class="">
+      <ul>
+        <li>🏢 <span class="spaced">営業本部</span> 👨🏻‍💼 <span class="spaced">{{ sales.営業本部.head }}</span> 💼 <span class="spaced">本部長</span></li>
+
+        <ul>
+          <li>🏢 <span class="spaced">ソリューション営業部</span> 👨🏻‍💼 <span class="spaced">{{ sales.営業本部.ソリューション営業部.head }}</span> 💼 <span class="spaced">部長</span></li>
+          <ul>
+            <li>🏢 <span class="spaced">1課</span> 👨🏻‍💼 <span class="spaced">{{ sales.営業本部.ソリューション営業部.1課.head }}</span> 💼 <span class="spaced">課長</span></li>
+            <ul>
+              <li>🏢 <span class="spaced">1G</span> 👨🏻‍💼 <span class="spaced">{{ sales.営業本部.ソリューション営業部.1課.1G.head }}</span> 💼 <span class="spaced">主任</span></li>
+              <ul>
+                {% for staff in sales.営業本部.ソリューション営業部.1課.1G.members %}
+                <li>👤 <span class="spaced">Staff: {{ staff }}</span></li>
+                {% endfor %}
+            </ul>
+            
+            <li>🏢 <span class="spaced">2G</span> 👨🏻‍💼 <span class="spaced">{{ sales.営業本部.ソリューション営業部.1課.2G.head }}</span> 💼 <span class="spaced">主任</span></li>
+            <ul>
+                {% for staff in sales.営業本部.ソリューション営業部.1課.2G.members %}
+                <li>👤 <span class="spaced">Staff: {{ staff }}</span></li>
+                {% endfor %}
+            </ul>
+            
+            </ul>
+            <li>🏢 <span class="spaced">1課</span> 👨🏻‍💼 <span class="spaced">{{ sales.営業本部.ソリューション営業部.2課.head }}</span> 💼 <span class="spaced">課長</span></li>
+            <ul>
+              <li>🏢 <span class="spaced">1G</span> 👨🏻‍💼 <span class="spaced">{{ sales.営業本部.ソリューション営業部.2課.1G.head }}</span> 💼 <span class="spaced">主任</span></li>
+              <ul>
+                {% for staff in sales.営業本部.ソリューション営業部.2課.1G.members %}
+                <li>👤 <span class="spaced">Staff: {{ staff }}</span></li>
+                {% endfor %}
+            </ul>
+            
+            <li>🏢 <span class="spaced">2G</span> 👨🏻‍💼 <span class="spaced">{{ sales.営業本部.ソリューション営業部.2課.2G.head }}</span> 💼 <span class="spaced">主任</span></li>
+            <ul>
+                {% for staff in sales.営業本部.ソリューション営業部.2課.2G.members %}
+                <li>👤 <span class="spaced">Staff: {{ staff }}</span></li>
+                {% endfor %}
+            </ul>
+
+            </ul>
+          </ul>
+        </ul>
+      </ul>
+
+      </div>
+
+    </div>
+    <div class="org-chart col-md-4">
+      <ul>
+        <li>
+          🏢 <span class="spaced">システム事業部 👨🏻‍💼 <span class="spaced">{{ system.システム事業部 }}</span> 💼 <span class="spaced">事業部長</span>
+          <ul>
+            <li>🏢 <span class="spaced">研究開発課</span> 👨🏻‍💼 <span class="spaced">{{ system.研究開発課.head }}</span> 💼 <span class="spaced">課長</span></li>
+              <ul>
+                {% for staff in system.研究開発課.members %}
+                <li>👤 <span class="spaced">Staff: {{ staff }}</span></li>
+                {% endfor %}
+             </ul>
+            <li>🏢 <span class="spaced">システム課</span> 👨🏻‍💼 <span class="spaced">{{ system.システム課.head }}</span> 💼 <span class="spaced">課長</span></li>
+              <ul>
+                {% for staff in system.システム課.members %}
+                <li>👤 <span class="spaced">Staff: {{ staff }}</span></li>
+                {% endfor %}
+              </ul>
+              <li>🏢 <span class="spaced">SW開発課</span> 👨🏻‍💼 <span class="spaced">{{ system.SW開発課.head }}</span> 💼 <span class="spaced">課長</span></li>
+              <ul>
+                <li>🏢 <span class="spaced">1G</span> 👨🏻‍💼 <span class="spaced">{{ system.SW開発課.1G.head.0 }}</span> 💼 <span class="spaced">{{ system.SW開発課.1G.head.1 }}</span></li>
+                <ul>
+                  {% for staff in system.SW開発課.1G.members %}
+                  <li>👤 <span class="spaced">Staff: {{ staff }}</span></li>
+                  {% endfor %}
+                </ul>
+                <li>🏢 <span class="spaced">2G</span> 👨🏻‍💼 <span class="spaced">{{ system.SW開発課.2G.head.0 }}</span> 💼 <span class="spaced">{{ system.SW開発課.2G.head.1 }}</span></li>
+                <ul>
+                  {% for staff in system.SW開発課.2G.members %}
+                  <li>👤 <span class="spaced">Staff: {{ staff }}</span></li>
+                  {% endfor %}
+                </ul>
+                <li>🏢 <span class="spaced">3G</span> 👨🏻‍💼 <span class="spaced">{{ system.SW開発課.3G.head.0 }}</span> 💼 <span class="spaced">{{ system.SW開発課.3G.head.1 }}</span></li>
+                <ul>
+                  {% for staff in system.SW開発課.3G.members %}
+                  <li>👤 <span class="spaced">Staff: {{ staff }}</span></li>
+                  {% endfor %}
+                </ul>
+                <li>🏢 <span class="spaced">4G</span> 👨🏻‍💼 <span class="spaced">{{ system.SW開発課.4G.head.0 }}</span> 💼 <span class="spaced">{{ system.SW開発課.4G.head.1 }}</span></li>
+                <ul>
+                  {% for staff in system.SW開発課.4G.members %}
+                  <li>👤 <span class="spaced">Staff: {{ staff }}</span></li>
+                  {% endfor %}
+                </ul>
+                
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="org-chart col-md-4">
+      <ul>
+        <li>🏢 <span class="spaced">ITサポート事業部</span></li>
+        <ul>
+        {% for people in support.management %}
+          <li>👨🏻‍💼 <span class="spaced">{{ people.first_name }}</span> 💼 <span class="spaced">{{ people.title }}</span></li>
+        {% endfor %}
+        </ul>
+
+        <ul>
+          {% for people in support.staffs %}
+            <li>👨🏻‍💼 <span class="spaced">{{ people.first_name }}</span> 💼 <span class="spaced">{{ people.title }}</span></li>
+          {% endfor %}
+          </ul>
+      </ul>
+    </div>
+  </div>
+</div>
   {% endblock %}
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

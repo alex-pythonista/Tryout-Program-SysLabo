@@ -3,10 +3,20 @@ from django.contrib import messages
 
 from .models import CommonDepartment, SysUser
 from .forms import SysUserForm, CommonDepartmentForm
-
+from .utils import get_sales_department, get_system_department, get_support_people
 
 def home(request, *args, **kwargs):
-    return render(request, 'index.html')
+    # sales_dept = SysUser.objects.filter(department='営業本部')
+    sales_dept = get_sales_department()
+    system_dept = get_system_department()
+    support = get_support_people()
+    data = {
+        "sales": sales_dept,
+        "system": system_dept,
+        "support": support,
+    }
+    
+    return render(request, 'index.html', context=data)
     
 
 def add_employee(request, *args, **kwargs):
