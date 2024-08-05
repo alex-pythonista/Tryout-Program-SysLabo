@@ -10,3 +10,21 @@ services:
       - ./db/data:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: syslaboapp
+    command: ["sh", "-c", "python manage.py runserver 0.0.0.0:8000"]
+    entrypoint: ["/app/entrypoint.sh"]
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_USER: syslabo
+      POSTGRES_PASSWORD: Syslabo123
+      POSTGRES_DB: orgchart
+    depends_on:
+      - db
