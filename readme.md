@@ -11,6 +11,15 @@ manage the change history, if possible.
 like you to design and propose a way to realize what kind of structure should be used to manage it (implementation is not
 required)
 
+### Project Brief
+1. The two user xlsx table files, that were provided along the assignement were implemented as a database of the application.
+2. Some fields are made optional intentionally, because, either it didn't contributed much on the organization chart render process or didn't contain any data.
+3. A relational database is used to store the data.
+4. Django Template Engine is used to implement the data rendering from the backend to frontend.
+
+### Video Demonstration
+https://github.com/user-attachments/assets/21263d00-a053-4a21-be1b-a6d6c03e4c8e
+
 ### How to setup the project
 
 #### Prerequisites
@@ -27,3 +36,11 @@ required)
 3. HTML, CSS, Bootstrap 4.6
 4. Docker
 5. PostgreSQL
+
+### Scope of improvements
+
+1. A modern frontend framework can be used to improve data rendering and dynamic data input.
+2. For an asymmetric data structure like the organization hierarchy, the optimized solution could be a NoSQL database.
+
+### My limitations
+Although I have decent proficiency in Django Framework and PostgreSQL database, I lack of frontend development. This application UI can be implemented with dynamic drag-n-drop features along with NoSQL db compatibility like MongoDB. 大変申し訳ありません 😔🙇🏻‍♂️
